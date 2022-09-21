@@ -16,7 +16,7 @@ module.exports = {
             message.channel.send(profile.name + " is a human.");
         } //Redundancy of Human role being here makes sure any coding changes in formatting never accidently exposes zombies.
         else {
-            message.channel.send(profile.name + " is a " + profile.role);
+            message.channel.send(profile.name + " is a " + profile.role + ".");
         }
     }
 }

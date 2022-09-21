@@ -2,7 +2,7 @@ require('dotenv').config()
 const Discord = require('discord.js');
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 const fs = require('fs');
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // for mongoDB
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGODB_SRV, {
 client.on('message', message => {
 
     if(!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+    
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
