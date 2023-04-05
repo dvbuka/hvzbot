@@ -1,36 +1,64 @@
 const { Channel } = require('discord.js');
-const model = require('../models/profileSchema');
+const { MessageEmbed } = require('discord.js');
+const { curTimestamp } = require('../helper/helper');
 const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: 'list',
     description: "lists every registered player",
-    async execute(message) {
-        format = "";
-        curLines = 0;
-        for await(const player of profileModel.find()) {
-    
+    async execute(client, message, args) {
+
+        const listEmbed = new MessageEmbed()
+            .setColor(0xFFA500)
+            .setTitle('Registered Players')
+            .setDescription('Last updated: ' + curTimestamp());
+
+
+        var humanString = "";
+        var zombieString = "";
+
+        for await (const player of profileModel.find()) {
+
             try {
-                profile = (await message.guild.members.fetch(player.userID));
-                if(profile) {
-                    curLines++;
-                    profile = profile.user;
                     role = (player.role == "Zombie" && !player.exposed) ? "Human" : player.role;
-                    format+= player.name.padEnd(15) + profile.tag.padEnd(30).substring(0,30) + ""+ role.padEnd(7) + (player.mod ? "[Mod]" : "") + "\n";
 
-                    if(curLines == 30) {
-                        curLines = 0;
-                        message.channel.send('`' + format + '`');
-                        format="";
-                    }
+                    if (role == 'Zombie')
+                        zombieString = zombieString + (player.name + ", ");
+
+                    if (role == 'Human')
+                        humanString = humanString + (player.name + ", ");
+
+                    //if (role != 'Unregistered') {
+                    //listEmbed.addFields({ name: player.name, value: (role.padEnd(7) + (player.mod ? "[Mod]" : "")) });
+                    //format += player.name.padEnd(15) + profile.tag.padEnd(30).substring(0, 30) + "" + role.padEnd(7) + (player.mod ? "[Mod]" : "") + "\n";
+                    //}
+
                 }
-
-            }
             catch {
                 //doesn't matter. if this fails, it means the user no longer is in the guild
             }
         }
-        if(format != "")
-            message.channel.send('`' + format + '`');
+
+        if (humanString.length < 2)
+            humanString = "No humans! :(";
+        else {
+            humanString = humanString.slice(0, humanString.length - 2);
+        }
+
+        if (zombieString.length < 2)
+            zombieString = "No zombies! :(";
+        else {
+
+            zombieString = zombieString.slice(0, zombieString.length - 2);
+        }
+
+        listEmbed.addField('Humans', humanString);
+        listEmbed.addField('Zombies', zombieString);
+
+        message.channel.send({ embeds: [listEmbed] });
+
+        //message.channel.send(humanString);
+
+
     }
 }
