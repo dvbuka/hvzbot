@@ -9,6 +9,7 @@ module.exports = {
     description: "updates embeds [mod only]",
     async execute(client, message, args) {
 
+        /*
         let caller = await profileModel.findOne({ userID: message.author.id });
 
         if (!caller.mod) {
@@ -18,7 +19,7 @@ module.exports = {
 
         if (args[0] === 'list') {
 
-            const embedMessage = await message.channel.fetch(1024196270904049664);
+            const embedMessage = await message.channel.fetch("1024196270904049664");
 
             const listEmbed = new MessageEmbed()
                 .setColor(0xFFA500)
@@ -44,5 +45,6 @@ module.exports = {
             }
             embedMessage.edit(listEmbed); // edits message with newembed
         }
+        */
     }
 }

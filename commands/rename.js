@@ -5,7 +5,10 @@ module.exports = {
     description: "updates your name",
     async execute(client, message, args) {
 
-        console.log("HI!");
+        if(args.length < 2) {
+            message.channel.send("Please specify a name and an initial!");
+            return;
+        }
         let newname = args.join(" ");
 
         if (newname > 20) {
@@ -13,9 +16,28 @@ module.exports = {
             return;
         };
 
+        let profile = await profileModel.findOne({ name: newname});
+
+        if(profile) {
+            message.channel.send("That name is already taken!")
+            return;
+        }
+
         profile = await profileModel.findOne({ userID: message.author.id });
+
+        if(!profile) {
+            message.channel.send("Register first!")
+            return;
+        }
+
         await profileModel.updateOne({ _id: profile._id }, { $set: { name: newname } });
-        message.guild.members.resolve(profile.userID).setNickname(profile.name);
+
+        try {
+            await message.guild.members.resolve(profile.userID).setNickname(profile.name);
+        } catch (DiscordAPIError) {
+            console.log("Can't change this person's nickname. Moving on!");
+        }
+
         message.channel.send("Your name is now " + newname + "!");
         
 

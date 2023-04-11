@@ -3,7 +3,7 @@ const profileModel = require('../models/profileSchema');
 module.exports = {
     name: 'expose',
     description: "reveals zombies who are hidden [mod only]",
-    async execute(client, message, args) {
+    async execute(client, message, args, guildIDs) {
 
         let caller = await profileModel.findOne({ userID: message.author.id });
 
@@ -27,8 +27,8 @@ module.exports = {
 
         if (profile.role == 'Zombie' && !profile.exposed) {
             await profileModel.updateOne({ _id: profile._id }, { $set: { exposed: true } });
-            message.guild.members.resolve(idString).roles.add("968258177013542993");
-            message.guild.members.resolve(idString).roles.remove("968420862900441108");
+            message.guild.members.resolve(idString).roles.add(guildIDs.zombieRole);
+            message.guild.members.resolve(idString).roles.remove(guildIDs.humanRole);
             message.channel.send(profile.name + " was revealed to be a hidden zombie!");
         }
         else if (profile.role == 'Zombie') {

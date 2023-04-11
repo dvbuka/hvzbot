@@ -4,7 +4,7 @@ const helper = require('../helper/helper');
 module.exports = {
     name: 'tag',
     description: "tags humans and turns them in to zombies",
-    async execute(client, message, args) {
+    async execute(client, message, args, guildIDs) {
 
         if (args[0] == null) {
             message.channel.send('Please specify a user with:\n\t`-tag [name or @]`.');
@@ -33,8 +33,8 @@ module.exports = {
 
         message.channel.send(profile.name + "'s role is now a Zombie");
 
-        await message.guild.members.resolve(idString).roles.add("968258177013542993");
-        await message.guild.members.resolve(idString).roles.remove("968420862900441108");
+        await message.guild.members.resolve(idString).roles.add(guildIDs.zombieRole);
+        await message.guild.members.resolve(idString).roles.remove(guildIDs.humanRole);
 
 
         let tagger = await profileModel.findOne({ userID: message.author.id });

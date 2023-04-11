@@ -3,7 +3,7 @@ const profileModel = require('../models/profileSchema');
 module.exports = {
     name: 'register',
     description: "use this to register for the game! format: -register [preferred name]",
-    async execute(client, message, args) {
+    async execute(client, message, args, guildIDs) {
         if (args[0] == null) {
             message.channel.send('Please specify your name with:\n\t`-register @[name]`.');
         }
@@ -22,7 +22,7 @@ module.exports = {
             });
             message.channel.send("Welcome to Humans vs. Zombies, " + profile.name + "!");
 
-            message.guild.members.resolve(message.author.id).roles.add("968420862900441108");
+            message.guild.members.resolve(message.author.id).roles.add(guildIDs.humanRole);
 
         } else {
 
@@ -31,7 +31,7 @@ module.exports = {
                 await profileModel.updateOne({ _id: profile._id }, { $set: { role: 'Human', name: args.join(" ") } });
                 message.channel.send("You've been registered for this event!");
                 
-                message.guild.members.resolve(message.author.id).roles.add("968420862900441108");
+                message.guild.members.resolve(message.author.id).roles.add(guildIDs.humanRole);
                 message.guild.members.resolve(message.author.id).setNickname(profile.name);
 
             }
