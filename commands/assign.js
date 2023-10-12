@@ -28,16 +28,29 @@ module.exports = {
 
         playerAcct = await message.guild.members.resolve(idString);
 
+        // reset roles
+        playerAcct.roles.remove(guildIDs.humanRole);
+        playerAcct.roles.remove(guildIDs.zombieRole);
+        client.guilds.resolve(message.guild).channels.resolve(guildIDs.zombieChannel).permissionOverwrites.create(playerAcct, {
+            VIEW_CHANNEL: false
+        });
+        client.guilds.resolve(message.guild).channels.resolve(guildIDs.humanChannel).permissionOverwrites.create(playerAcct, {
+            VIEW_CHANNEL: false
+        });
+
+        // update accordingly
         if (args[1] == "Human")
             playerAcct.roles.add(guildIDs.humanRole);
 
-        if (args[1] == "Zombie") {
-            client.guilds.resolve(message.guild).channels.resolve(guildIDs.zombieChannel).permissionOverwrites.create(playerAcct, {
-                VIEW_CHANNEL: true
-            });
-            /*message.guild.channels.resolveId("968280975261978645").permissionOverwrites.create(playerAcct, {
-                VIEW_CHANNEL: true
-            });*/
+        else if (args[1] == "Zombie") {
+            if (profile.exposed == true)
+                playerAcct.roles.add(guildIDs.zombieRole);
+            else {
+                message.guild.channels.resolveId(zombieChannel).permissionOverwrites.create(playerAcct, {
+                    VIEW_CHANNEL: true
+                });
+            }
+
         }
 
         await profileModel.updateOne({ _id: profile._id }, { $set: { role: args[1] } });

@@ -1,5 +1,6 @@
 const profileModel = require('../models/profileSchema');
 
+// TODO: Make less slow
 module.exports = {
     name: 'updatenames',
     description: "enforces nicknames in the server of all non-moderators [mod only]",
@@ -8,7 +9,7 @@ module.exports = {
         let caller = await profileModel.findOne({ userID: message.author.id });
 
         if (!caller.mod) {
-            message.channel.send("You don't have the permissions to run this command.")
+            await message.channel.send("You don't have the permissions to run this command.")
             return;
         }
 
