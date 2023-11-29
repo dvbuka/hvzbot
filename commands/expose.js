@@ -1,5 +1,8 @@
+const  { EmbedBuilder } = require('discord.js');
+
 const profileModel = require('../models/profileSchema');
 const helper = require('../helper/helper')
+
 module.exports = {
     name: 'expose',
     description: "reveals zombies who are hidden [mod only]",
@@ -13,6 +16,16 @@ module.exports = {
         }
 
         const idString = helper.fetchUserId(args[0]);
+        if (idString == false) { /* Invalid ID or Mention Provided */
+            const embed = new EmbedBuilder()
+                .setTitle("Woah, invalid User provided")
+                .setDescription("Please ensure you mention a current server member or provide their ID.")
+                .setColor("RED");
+
+            message.channel.send({ embeds: [embed] });
+            return false;
+        };
+
         let profile = await profileModel.findOne({ userID: idString });
 
         if (!profile) {
