@@ -1,5 +1,5 @@
 const profileModel = require('../models/profileSchema');
-
+const helper = require('../helper/helper')
 module.exports = {
     name: 'expose',
     description: "reveals zombies who are hidden [mod only]",
@@ -12,12 +12,7 @@ module.exports = {
             return;
         }
 
-        if (args[0] == null || args[0].length < 17) {
-            message.channel.send('Please specify a user with:\n\t`-expose @[name]`.');
-            return;
-        }
-
-        var idString = args[0].substring(2, args[0].length - 1);
+        const idString = helper.fetchUserId(args[0]);
         let profile = await profileModel.findOne({ userID: idString });
 
         if (!profile) {

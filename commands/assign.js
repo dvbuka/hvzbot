@@ -18,7 +18,7 @@ module.exports = {
             return;
         }
 
-        var idString = helper.getUserFromMention(args[0]);
+        const idString = helper.fetchUserId(args[0]);
         let profile = await profileModel.findOne({ userID: idString });
 
         if (!profile) {

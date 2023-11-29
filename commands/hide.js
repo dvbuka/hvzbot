@@ -11,17 +11,7 @@ module.exports = {
             return;
         }
 
-        if (args[0] == null) {
-            message.channel.send('Please specify a user with:\n\t`-hide @[name]`.');
-            return;
-        }
-
-        if (args[0].length < 17) {
-            message.channel.send('Please specify a user with:\n\t`-hide @[name]`. [mod only]');
-            return;
-        }
-
-        var idString = helper.getUserFromMention(args[0]);
+        const idString = helper.fetchUserId(args[0]);
         let profile = await profileModel.findOne({ userID: idString });
 
         if (!profile) return;

@@ -6,14 +6,9 @@ module.exports = {
     description: "tags humans and turns them in to zombies",
     async execute(client, message, args, guildIDs) {
 
-        if (args[0] == null) {
-            message.channel.send('Please specify a user with:\n\t`-tag [name or @]`.');
-            return;
-        }
-
         profile = null;
         if (args[0].length >= 17) {
-            var idString = helper.getUserFromMention(args[0]);
+            const idString = helper.fetchUserId(args[0]);
             profile = await profileModel.findOne({ userID: idString });
 
             if (profile == null) {

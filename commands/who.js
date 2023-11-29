@@ -1,18 +1,13 @@
 const profileModel = require('../models/profileSchema');
-const { getUserFromMention } = require('../helper/helper');
+const { fetchUserId } = require('../helper/helper');
 
 module.exports = {
     name: 'who',
     description: "this reveals the role of a user",
     async execute(client, message, args) {
 
-        if(args[0] == null || args[0].length < 17) {
-            message.channel.send("Please tag a user!");
-            return;
-        }
 
-        var idString = getUserFromMention(args[0]);
-
+        const idString = fetchUserId(args[0]);
         let profile = await profileModel.findOne({userID: idString});
 
         if(!profile) return;
