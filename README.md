@@ -1,7 +1,8 @@
 # 🧟 UCD HvZBot 🧟
 HvZBot is a Discord bot that tracks the state of HvZ events at UC Davis. As of April 2023, it is actively maintained.
 
-## Current Features `v2.5 April 11, 2023`
+## Current Features 
+`v2.5 April 11, 2023`
 
 The database tracks:
 * Player roles
