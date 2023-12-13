@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 const profileModel = require('../models/profileSchema');
 const helper = require('../helper/helper');
@@ -22,10 +22,10 @@ module.exports = {
 
         const idString = helper.fetchUserId(args[0]);
         if (idString == false) { /* Invalid ID or Mention Provided */
-            const embed = new EmbedBuilder()
+            const embed = new MessageEmbed()
                 .setTitle("Woah, invalid User provided")
                 .setDescription("Please ensure you mention a current server member or provide their ID.")
-                .setColor("RED");
+                .setColor(0xFF0000);
 
             message.channel.send({ embeds: [embed] });
             return false;
