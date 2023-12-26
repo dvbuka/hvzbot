@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 const profileModel = require('../models/profileSchema');
-const { fetchUserId } = require('../helper/helper');
+const { fetchUserId } = require('../utils/utils');
 
 module.exports = {
     name: 'who',

@@ -1,6 +1,6 @@
 const { Channel } = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const { curTimestamp } = require('../helper/helper');
+const { curTimestamp } = require('../utils/utils');
 const profileModel = require('../models/profileSchema');
 
 module.exports = {

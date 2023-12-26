@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const botSetup = new mongoose.Schema({
-    name: {type: String, require: true, unique: true},
-    propID: {type: String, require: true},
+    zombieRole: {type: String, require: true, unique: true},
+    zombieChannel: {type: String, require: true, unique: true},
+    humanRole: {type: String, require: true, unique: true},
+    humanChannel: {type: String, require: true, unique: true},
 });
 
 const model = mongoose.model("botSetup", botSetup);

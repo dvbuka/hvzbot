@@ -19,6 +19,32 @@ function fetchUserId(string) {
 	return false;
 };
 
+async function fetchUserProfile(profileModel, args, message) {
+	/* Try parsing as userID */
+	let id = fetchUserId(args[0]);
+
+	if(id) {
+		return await profileModel.findOne({ userID: id });
+	}
+
+	/* Try parsing as name */
+	let name = args[0] + " " + args[1];
+
+	let profile = await profileModel.findOne({ name: name });	
+
+	if (!profile) { /* Invalid ID or Mention Provided */
+	const embed = new MessageEmbed()
+		.setTitle("Invalid user provided")
+		.setDescription("Please ensure you mention a current server member or provide their ID.")
+		.setColor(0xFF0000);
+
+	message.channel.send({ embeds: [embed] });
+	return false;
+	}
+
+	return profile;
+};
+
 async function checkMod(profileModel, message) {
 	let caller = await profileModel.findOne({ userID: message.author.id });
 
@@ -29,15 +55,13 @@ async function checkMod(profileModel, message) {
 	return true;
 }
 
-//source: https://tecadmin.net/get-current-date-time-javascript/
+// source: https://tecadmin.net/get-current-date-time-javascript/
 function curTimestamp() {
-
 	var today = new Date();
 	var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	var dateTime = date + ' ' + time;
-
 	return dateTime;
 }
 
-module.exports = { fetchUserId, checkMod, curTimestamp };
+module.exports = { fetchUserId, fetchUserProfile, checkMod, curTimestamp };

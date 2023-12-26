@@ -28,7 +28,6 @@ client.once('ready', () => {
 mongoose.connect(process.env.MONGODB_SRV, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    //userFindAndModify: false
 }).then(() => {
     console.log('Connected to the database!');
 }).catch((err) => {
@@ -38,7 +37,7 @@ mongoose.connect(process.env.MONGODB_SRV, {
 // portion that responds to Discord input
 client.on('message', message => {
 
-    if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+    if ( message.author.bot || !message.content.startsWith(process.env.PREFIX)) return;
 
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -56,5 +55,4 @@ client.on('message', message => {
     }
 });
 
-// put at end
 client.login(process.env.DISCORD_TOKEN);

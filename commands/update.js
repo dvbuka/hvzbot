@@ -1,6 +1,6 @@
 const { Channel } = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const { curTimestamp } = require('../helper/helper');
+const { curTimestamp } = require('../utils/utils');
 const model = require('../models/profileSchema');
 const profileModel = require('../models/profileSchema');
 
@@ -9,6 +9,7 @@ module.exports = {
     description: "updates embeds [mod only]",
     async execute(client, message, args) {
 
+        /* TODO: FIX */
         /*
         let caller = await profileModel.findOne({ userID: message.author.id });
 

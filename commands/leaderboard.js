@@ -1,6 +1,6 @@
 const profileModel = require('../models/profileSchema');
 const { MessageEmbed } = require('discord.js');
-const { curTimestamp } = require('../helper/helper');
+const { curTimestamp } = require('../utils/utils');
 
 
 module.exports = {
