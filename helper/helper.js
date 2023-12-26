@@ -1,18 +1,23 @@
-// functions that are used by multiple commands. this declutters code and makes it more consistent
+// functions that are used by multiple commands, this declutters code and makes it more consistent
 
-function getUserFromMention(mention) {
-	if (!mention) return;
+function fetchUserId(string) {
+	if (!string) return false;
 
-	if (mention.startsWith('<@') && mention.endsWith('>')) {
-		mention = mention.slice(2, -1);
+	/* Is it a valid mention? */
+	const mentionMatches = string.match(/^<@!?(\d+)>$/);
+	if (mentionMatches[1]) {
+		return mentionMatches[1];
+	};
 
-		if (mention.startsWith('!')) {
-			mention = mention.slice(1);
-		}
+	/* Non Valid Mentions: Assume ID Provided */
+	const idMatches = string.match(/^\d{18}$/);
+	if (idMatches[1]) {
+		return idMatches[1];
+	};
 
-		return mention;
-	}
-}
+	/* ID has not been found */
+	return false;
+};
 
 async function checkMod(profileModel, message) {
 	let caller = await profileModel.findOne({ userID: message.author.id });
@@ -35,4 +40,4 @@ function curTimestamp() {
 	return dateTime;
 }
 
-module.exports = { getUserFromMention, curTimestamp };
+module.exports = { fetchUserId, checkMod, curTimestamp };

@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 const profileModel = require('../models/profileSchema');
 const helper = require('../helper/helper');
 
@@ -18,7 +20,18 @@ module.exports = {
             return;
         }
 
-        var idString = helper.getUserFromMention(args[0]);
+        const idString = helper.fetchUserId(args[0]);
+        if (idString == false) { /* Invalid ID or Mention Provided */
+            const embed = new MessageEmbed()
+                .setTitle("Woah, invalid User provided")
+                .setDescription("Please ensure you mention a current server member or provide their ID.")
+                .setColor(0xFF0000);
+
+            message.channel.send({ embeds: [embed] });
+            return false;
+        };
+
+
         let profile = await profileModel.findOne({ userID: idString });
 
         if (!profile) {

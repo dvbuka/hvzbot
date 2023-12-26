@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 const profileModel = require('../models/profileSchema');
 const helper = require('../helper/helper');
 
@@ -6,14 +8,19 @@ module.exports = {
     description: "tags humans and turns them in to zombies",
     async execute(client, message, args, guildIDs) {
 
-        if (args[0] == null) {
-            message.channel.send('Please specify a user with:\n\t`-tag [name or @]`.');
-            return;
-        }
-
         profile = null;
         if (args[0].length >= 17) {
-            var idString = helper.getUserFromMention(args[0]);
+            const idString = helper.fetchUserId(args[0]);
+            if (idString == false) { /* Invalid ID or Mention Provided */
+                const embed = new MessageEmbed()
+                    .setTitle("Woah, invalid User provided")
+                    .setDescription("Please ensure you mention a current server member or provide their ID.")
+                    .setColor(0xFF0000);
+
+                message.channel.send({ embeds: [embed] });
+                return false;
+            };
+
             profile = await profileModel.findOne({ userID: idString });
 
             if (profile == null) {
