@@ -15,13 +15,13 @@ module.exports = {
             return;
         }
 
-        let profile = fetchUserProfile(profileModel, args, message);
+        let profile = await utils.fetchUserProfile(profileModel, args, message);
         if (!profile) return;
 
         if (profile.role == 'Zombie' && !profile.exposed) {
             await profileModel.updateOne({ _id: profile._id }, { $set: { exposed: true } });
-            message.guild.members.resolve(idString).roles.add(guildIDs.zombieRole);
-            message.guild.members.resolve(idString).roles.remove(guildIDs.humanRole);
+            message.guild.members.fetch(profile.userID).roles.add(guildIDs.zombieRole);
+            message.guild.members.fetch(profile.userID).roles.remove(guildIDs.humanRole);
             message.channel.send(profile.name + " was revealed to be a hidden zombie!");
         }
         else if (profile.role == 'Zombie') {

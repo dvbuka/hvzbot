@@ -1,14 +1,14 @@
 // set up
 require('dotenv').config()
 const Discord = require('discord.js');
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"] });
 const fs = require('fs');
 const mongoose = require("mongoose"); // for mongoDB
 const guildIDs = {
     zombieRole: "968258177013542993",
-    zombieChannel: "1092727051099852820",
+    zombieChannel: "1157145946279383052",
     humanRole: "968420862900441108",
-    humanChannel: "1092726703203303496"
+    humanChannel: "1157145873210417203"
 }
 
 // creates a list of commands and their properties by iterating through files in the commands folder

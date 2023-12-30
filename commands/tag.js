@@ -15,9 +15,8 @@ module.exports = {
 
         message.channel.send(profile.name + "'s role is now a Zombie");
 
-        await message.guild.members.resolve(idString).roles.add(guildIDs.zombieRole);
-        await message.guild.members.resolve(idString).roles.remove(guildIDs.humanRole);
-
+        await message.guild.members.fetch(profile.userID).roles.add(guildIDs.zombieRole);
+        await message.guild.members.fetch(profile.userID).roles.remove(guildIDs.humanRole);
 
         let tagger = await profileModel.findOne({ userID: message.author.id });
 

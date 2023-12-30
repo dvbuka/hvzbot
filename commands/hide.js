@@ -13,7 +13,7 @@ module.exports = {
             return;
         }
 
-        let profile = fetchUserProfile(profileModel, args, message);
+        let profile = utils.fetchUserProfile(profileModel, args, message);
         if (!profile) return;
 
         if (profile.role == 'Zombie' && profile.exposed) {

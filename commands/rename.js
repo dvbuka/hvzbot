@@ -33,7 +33,7 @@ module.exports = {
         await profileModel.updateOne({ _id: profile._id }, { $set: { name: newname } });
 
         try {
-            await message.guild.members.resolve(profile.userID).setNickname(profile.name);
+            await message.guild.members.fetch(profile.userID).setNickname(profile.name);
         } catch (DiscordAPIError) {
             console.log("Can't change this person's nickname. Moving on!");
         }

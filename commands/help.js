@@ -5,18 +5,6 @@ module.exports = {
     name: 'help',
     description: "all commands DavisHvZ can use",
     async execute(message, commands) {
-        /*
-        OLD HELP:
-
-        format = "\n";
-        commands.forEach(command => {
-            format += "**" + command.name + "**" + ":\n\t" + command.description + "\n";
-        });
-        message.channel.send(format);
-
-        */
-
-        // inside a command, event listener, etc.
         const helpEmbed = new MessageEmbed()
             .setColor(0xFFA500)
             .setTitle('Bot Commands')

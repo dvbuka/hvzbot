@@ -27,15 +27,9 @@ module.exports = {
 
                     if (role == 'Human')
                         humanString = humanString + (player.name + ", ");
-
-                    //if (role != 'Unregistered') {
-                    //listEmbed.addFields({ name: player.name, value: (role.padEnd(7) + (player.mod ? "[Mod]" : "")) });
-                    //format += player.name.padEnd(15) + profile.tag.padEnd(30).substring(0, 30) + "" + role.padEnd(7) + (player.mod ? "[Mod]" : "") + "\n";
-                    //}
-
                 }
             catch {
-                //doesn't matter. if this fails, it means the user no longer is in the guild
+                // The user no longer is in the guild
             }
         }
 

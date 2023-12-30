@@ -22,7 +22,7 @@ module.exports = {
             });
             message.channel.send("Welcome to Humans vs. Zombies, " + profile.name + "!");
 
-            message.guild.members.resolve(message.author.id).roles.add(guildIDs.humanRole);
+            message.guild.members.fetch(message.author.id).roles.add(guildIDs.humanRole);
 
         } else {
 
@@ -31,8 +31,8 @@ module.exports = {
                 await profileModel.updateOne({ _id: profile._id }, { $set: { role: 'Human', name: args.join(" ") } });
                 message.channel.send("You've been registered for this event!");
                 
-                message.guild.members.resolve(message.author.id).roles.add(guildIDs.humanRole);
-                message.guild.members.resolve(message.author.id).setNickname(profile.name);
+                message.guild.members.fetch(message.author.id).roles.add(guildIDs.humanRole);
+                message.guild.members.fetch(message.author.id).setNickname(profile.name);
 
             }
             else {
