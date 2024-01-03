@@ -2,22 +2,19 @@
 HvZBot is a Discord bot that tracks the state of HvZ events at UC Davis. As of April 2023, it is actively maintained.
 
 ## Current Features 
-`v2.5 April 11, 2023`
-
 The database tracks:
 * Player roles
 * Zombie tags
 * Mod permissions
-* Whether a zombie is hidden or not (OZs (original zombies) when introduced play like humans until exposed).
+* Whether a zombie is hidden or not (OZs (original zombies) when introduced play like humans until they are exposed).
 
-
-Gameplay features
-* Hidden zombies may access the Human channel, but when exposed, lose viewing permissions immediately!
-* There is a leaderboard commands, which shows which Zombies have the most tagged. Hidden zombies do not appear on the LB.
+Gameplay features:
+* Hidden zombies may access the Human channel, but when exposed, lose viewing permissions immediately.
+* There is a leaderboard command, which shows which Zombies have the most tagged. Hidden zombies do not appear on the LB.
 * A list of all players
 * Total player accounts, with the real totals (meaning that hidden zombies are counted as zombies here).
 
-State updates
+State updates:
 * `who` command reveals a player's name and publicly known role using their Discord tag.
 * `assign` allows mods to change a player's role
 * `hide` / 'expose' allow OZs to be added and exposed.
@@ -45,6 +42,4 @@ For Heroku setup, only a worker dyno is required. They unfortunately no longer c
 
 ## Future Updates
 * Achievements
-* Communication with website
 * Mission-dependant features, such as allowing players to unlock bot features by successfully completing missions.
-
