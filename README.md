@@ -42,4 +42,4 @@ For Heroku setup, only a worker dyno is required. They unfortunately no longer c
 
 ## Future Updates
 * Achievements
-* Mission-dependant features, such as allowing players to unlock bot features by successfully completing missions.
+* Mission-dependent features, such as allowing players to unlock bot features by successfully completing missions.
