@@ -6,9 +6,9 @@ const fs = require('fs');
 const mongoose = require("mongoose"); // for mongoDB
 const guildIDs = {
     zombieRole: "968258177013542993",
-    zombieChannel: "1092727051099852820",
+    zombieChannel: "1222456449763115008",
     humanRole: "968420862900441108",
-    humanChannel: "1092726703203303496"
+    humanChannel: "1222456229239062528"
 }
 
 // creates a list of commands and their properties by iterating through files in the commands folder

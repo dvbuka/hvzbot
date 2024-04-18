@@ -8,7 +8,7 @@ module.exports = {
     description: "leaderboard of most tags by zombies",
     async execute(client, message, args) {
 
-        players = await profileModel.aggregate([{ $match: { role: "Zombie", exposed: true } }, { $sort: { numtags: -1 } }]);
+        let players = await profileModel.aggregate([{ $match: { role: "Zombie", exposed: true } }, { $sort: { numtags: -1 } }]);
 
         const lbEmbed = new MessageEmbed()
             .setColor(0xFFA500)

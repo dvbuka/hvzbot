@@ -8,7 +8,7 @@ module.exports = {
     description: "hides zombies who are revealed [mod only]",
     async execute(client, message, args) {
 
-        if ((await profileModel.findOne({ userID: message.author.userID }).mod) == false) {
+        if ((profileModel.findOne({ userID: message.author.userID }).mod) == false) {
             message.channel.send("You don't have the permissions to run this command.")
             return;
         }
