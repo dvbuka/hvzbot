@@ -28,6 +28,13 @@ module.exports = {
                 return;
             }
 
+            await profileModel.updateOne({ _id: profile._id }, { $set: { role: "Zombie", tagged: true, exposed: true } });
+
+            message.channel.send(profile.name + "'s role is now a Zombie");
+    
+            await message.guild.members.resolve(idString).roles.add(guildIDs.zombieRole);
+            await message.guild.members.resolve(idString).roles.remove(guildIDs.humanRole);
+            
         } else {
             profile = await profileModel.findOne({ name: args.join(" ") });
             if (!profile) {
@@ -35,13 +42,6 @@ module.exports = {
                 return;
             }
         }
-
-        await profileModel.updateOne({ _id: profile._id }, { $set: { role: "Zombie", tagged: true, exposed: true } });
-
-        message.channel.send(profile.name + "'s role is now a Zombie");
-
-        await message.guild.members.fetch(idString).roles.add(guildIDs.zombieRole);
-        await message.guild.members.fetch(idString).roles.remove(guildIDs.humanRole);
 
 
         let tagger = await profileModel.findOne({ userID: message.author.id });
